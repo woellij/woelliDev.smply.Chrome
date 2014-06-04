@@ -1,0 +1,92 @@
+@import "_settings.scss";
+
+@import 
+"../foundation/scss/foundation/components/_alert-boxes.scss", 
+"../foundation/scss/foundation/components/_forms.scss", 
+"../foundation/scss/foundation/components/_buttons.scss", 
+"../foundation/scss/foundation/components/_button-groups.scss", 
+"../foundation/scss/foundation/components/_grid.scss",
+"../foundation/scss/foundation/components/_offcanvas.scss",
+"../foundation/scss/foundation/components/_thumbs.scss",
+"../foundation/scss/foundation/components/_side-nav.scss",
+"../foundation/scss/foundation/components/_visibility.scss",
+"../foundation/scss/foundation/components/_labels.scss",
+"../foundation/scss/foundation/components/_block-grid.scss",
+ "../foundation/scss/foundation/components/_dropdown.scss";
+
+html {
+    overflow: hidden;
+}
+
+body {
+    background-color: $primary-background-color;
+}
+
+.inner-wrap{
+    height:100%;
+}
+
+.main {
+    margin-top: $tabbar-height;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+$tab-bar-button-padding: ($tabbar-height - $button-font-med) /2;
+
+.tab-bar .button {
+    height: $tabbar-height;
+    padding-top: $tab-bar-button-padding;
+    padding-bottom: $tab-bar-button-padding;
+}
+
+.presenter {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.side-nav{
+    padding: 0 0.5rem;
+}
+
+.side-nav li{
+    width:100%;
+}
+
+
+//   "foundation/components/block-grid",
+//   "foundation/components/breadcrumbs",
+//   "foundation/components/button-groups",
+//   "foundation/components/buttons",
+//   "foundation/components/clearing",
+//   "foundation/components/dropdown",
+//   "foundation/components/dropdown-buttons",
+//   "foundation/components/flex-video",
+//   "foundation/components/grid",
+//   "foundation/components/inline-lists",
+//   "foundation/components/joyride",
+//   "foundation/components/keystrokes",
+//   "foundation/components/labels",
+//   "foundation/components/magellan",
+//   "foundation/components/orbit",
+//   "foundation/components/pagination",
+//   "foundation/components/panels",
+//   "foundation/components/pricing-tables",
+//   "foundation/components/progress-bars",
+//   "foundation/components/reveal",
+//   "foundation/components/side-nav",
+//   "foundation/components/split-buttons",
+//   "foundation/components/sub-nav",
+//   "foundation/components/switch",
+//   "foundation/components/tables",
+//   "foundation/components/tabs",
+//   "foundation/components/thumbs",
+//   "foundation/components/tooltips",
+//   "foundation/components/top-bar",
+//   "foundation/components/type",
+//   "foundation/components/offcanvas",
+//   "foundation/components/visibility";
+//"foundation/components/accordion"

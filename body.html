@@ -1,0 +1,166 @@
+﻿
+<div class="inner-wrap">
+    <!-- TOP BAR -->
+    <div class="fixed">
+        <nav class="tab-bar" id="tab-bar">
+            <!--LEFT-->
+            <section class="left">
+                <a class="left-off-canvas-toggle menu-icon button"><span></span></a>
+            </section>
+            <!--MID-->
+            <section class="middle tab-bar-section">
+                <div class="app-logo"></div>
+            </section>
+            <!--RIGHT-->
+            <section class="right" id="usercontrols">
+                <ul class="button-group" data-bind="visible: isLoggedIn() == false && isLoggingIn() == false">
+                    <li>
+                        <a href="#/register" class="button show-for-medium-up right">Register</a>
+                    </li>
+                    <li>
+                        <a class="button right" href="#/login">Login</a>
+                    </li>
+                </ul>
+                <div data-bind="visible: isLoggedIn">
+                    <ul class="button-group">
+                        <li>
+                            <a data-dropdown="createPinDropDown" data-options="align:left"
+                               class="button controls-button menu-icon menu-icon text-left">
+                                <i class="icon-file left headericon"></i>
+                            </a>
+
+                        </li>
+                        <li class="button controls-button menu-icon right-off-canvas-toggle menu-icon text-left">
+                            <div>
+                                <i class="icon-user-2 left headericon"></i>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- ko if: isApp() -->
+                    <ul id="createPinDropDown" class="tiny f-dropdown" data-dropdown-content>
+                        <li><a href="#/uploadPin">Upload Pin</a></li>
+                        <li><a href="#/cam">Take Photo to Pin</a></li>
+                    </ul>
+                    <!-- /ko -->
+                    <!-- ko if: isApp() == false -->
+                    <div id="createPinDropDown" class="tiny f-dropdown" data-dropdown-content>
+
+                        <div class="button horizontal-stretch">
+                            <span>Upload Pin</span>
+                            <input type="file" id="uploadPinInput" role="button" accept="image/*"
+                                   class="vertical-stretch"
+                                   style="margin: 0; padding: 0; left:0; right:0; -ms-opacity: 0; opacity: 0;" />
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </section>
+        </nav>
+    </div>
+    <!-- // END TOP BAR -->
+    <!--LEFT OFF CANVAS CONTROLS-->
+    <aside class="left-off-canvas-menu" id="controls">
+        <div>
+            <ul class="off-canvas-list">
+                <li>
+                    <ul class="off-canvas-list">
+                        <li><a href="#/all">All Categories</a></li>
+                        <li><a href="#/popular">Popular</a></li>
+                    </ul>
+                <li><label>Categories</label></li>
+                <li>
+                    <ul class="off-canvas-list" data-bind="foreach: categories">
+                        <li>
+                            <!-- click: $root.categorySelected -->
+                            <a data-bind="text: category_name, attr: { href: url() }"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!--RIGHT OFF CANVAS CONTROLS // USER CONTROLS -->
+    <aside id="usersettings" class="right-off-canvas-menu">
+        <ul class="off-canvas-list">
+            <li>
+                <a href="#/feed">Your Feed</a>
+            </li>
+            <li>
+                <label style="position:relative">
+                    Your Boards
+                    <a href="#/createBoard" style="position:absolute; right:0; top:0; padding:0.5rem;width: 35px;
+height: 100%" class="button">
+                        <i class="icon-plus-2 headericon" style="color: #FFFFFF;
+font-size: 1.2rem;"></i>
+                    </a>
+                </label>
+            </li>
+            <li data-bind="with: boardsViewModel">
+                <ul class="off-canvas-list" data-bind="foreach: boards">
+                    <li>
+                        <a href="#" data-bind="text: name, click: $root.boardSelected"></a>
+                    </li>
+                </ul>
+            </li>
+            <li><label>Your Account</label></li>
+            <li><a href="#" data-bind="click: logoutCommand">Logout</a></li>
+        </ul>
+    </aside>
+
+
+    <!-- CONTENT -->
+    <section class="main">
+        <div id="main" class="horizontal-stretch vertical-stretch">
+            <div id="navigation-div" class="presenter horizontal-stretch vertical-stretch scrollable" data-bind='event: { scroll: onscroll }'>
+
+            </div>
+            <div class="spinner" id="spinnerDiv" data-bind="spinner: isLoading"></div>
+        </div>
+        <div id="notifications" class="presenter notifications-area"
+             data-bind="foreach: notifications">
+            <div data-alert class="alert-box" data-bind="css: options.type">
+                <h5 data-bind="text: title"></h5>
+                <div data-dind="with: options">
+                    <!-- ko if: options.content-->
+                    <div data-bind="text: content">
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <a href="#" data-bind="click: close" class="close">&times;</a>
+            </div>
+
+        </div>
+    </section>
+    <!--MODALS-->
+    <div id="modal" class="reveal-modal" data-reveal></div>
+    <!-- /// END CONTENT -->
+    <a class="exit-off-canvas"></a>
+</div>
+
+<script type="text/html" id="pin-template">
+    <div class="th item" data-bind="afterRender: $root.pinRendered">
+        <a data-bind="attr: { href: url}" target="_blank">
+            <img class="pinImage" style="width:100%" data-bind="attr: { src: image }" />
+        </a>
+        <div class="pincontent">
+
+            <!-- ko if: title || description-->
+            <!-- ko if: title-->
+            <h4 data-bind="text: title" />
+            <!-- /ko -->
+            <!-- ko if: description-->
+            <div class="description">
+                <p class="text-justify" data-bind="text: description" />
+            </div>
+            <!-- /ko-->
+            <!-- /ko -->
+            <div>
+                <ul class="button-group horizontal-stretch">
+                    <li><a class="button" data-bind="click: $root.likePin, css: { own: liked() }">like</a></li>
+                    <li><a class="button" data-bind="click: $root.reTing, css: { own: isreTinged() }">re-ting</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
